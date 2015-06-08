@@ -2,6 +2,7 @@ from display import *
 from matrix import *
 from gmath import calculate_dot
 from math import cos, sin, pi
+import sys
 
 MAX_STEPS = 100
 
@@ -9,7 +10,10 @@ def add_polygon( points, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
     add_point( points, x0, y0, z0 )
     add_point( points, x1, y1, z1 )
     add_point( points, x2, y2, z2 )
-    
+
+#zbuffer
+z_buffer = [[-sys.maxint for i in xrange(500)] for i in xrange(500)]
+
 def draw_polygons( points, screen, color ):
 
     if len(points) < 3:
@@ -20,14 +24,46 @@ def draw_polygons( points, screen, color ):
     while p < len( points ) - 2:
 
         if calculate_dot( points, p ) >= 0:
+            #consider passing z_buffer into drawline
+            #drawline:
+            ####if point.z > z_buffer[x,y], draw point, input
             draw_line( screen, points[p][0], points[p][1],
                        points[p+1][0], points[p+1][1], color )
             draw_line( screen, points[p+1][0], points[p+1][1],
                        points[p+2][0], points[p+2][1], color )
             draw_line( screen, points[p+2][0], points[p+2][1],
                        points[p][0], points[p][1], color )
-        p+= 3
+            #########scanline here
+            #index of points
+            top=0;
+            mid=0;
+            bottom=0;
+            min_value = min(points[p][1], min(points[p+1][1],points[p+2][1]));
+            max_value = max(points[p][1], max(points[p+1][1],points[p+2][1]));
+            #find lowest
+            if min_value == points[p][1] :
+                bottom=0
+            elif min_value == points[p+1][1]:
+                bottom=1
+            else:
+                bottom=2
+            #find highest
+            if max_value == points[p][1]:
+                top=0
+            elif max_value == points[p+1][1]:
+                top=1
+            else:
+                top=2
+            #mid
+            mid = max(top,bottom) - min(top,bottom) + ( (max(top,bottom)-2) * -2)
+            print "top:"+str(top)
+            print "mid:"+str(mid)
+            print "bot:"+str(bottom)
 
+            ##########scanline ends here
+        p+= 3
+        
+        
 
 
 def add_box( points, x, y, z, width, height, depth ):
