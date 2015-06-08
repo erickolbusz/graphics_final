@@ -2,11 +2,21 @@ def parse(f_name):
     f = open(f_name, 'r')
     specs_dict = {}
     header_next = False
+    filling_dict = (False, None)
     for line in f.readlines():
         line = line.strip()
+        if filling_dict[0]:
+            if (len(line) == 0):
+                filling_dict = (False, None)
+            else:
+                colon_i = line.find(':')
+                specs_dict[header].append((line[:colon_i], line[colon_i+1:]))
         if header_next and len(line) != 0:
             header = line[1:-1]
-            print header
+            specs_dict[header] = []
+            filling_dict = (True, header)
         header_next = (len(line) == 0)
+    for i in specs_dict['Metadata']:
+        print i
 
 parse("goreshit - o'er the flood (grumd) [The Flood Beneath].osu")
