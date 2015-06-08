@@ -55,11 +55,8 @@ def draw_polygons( points, screen, color ):
             else:
                 top=2
             #mid
-            mid = max(top,bottom) - min(top,bottom) + ( (max(top,bottom)-2) * -2)
-            print "top:"+str(top)
-            print "mid:"+str(mid)
-            print "bot:"+str(bottom)
-
+            mid = max(top,bottom) - min(top,bottom) + ( (max(top,bottom)-2)*-2 ) - 1
+            
             ##########scanline ends here
         p+= 3
         
