@@ -319,7 +319,9 @@ def add_point( matrix, x, y, z=0 ):
 
 #returns the z value on the line.
 def calculate_z(start_value,end_value,current_value,start_z,end_z):
-    percent=(current_value-start)/(end-start)
+    if start_value-end_value ==0:
+        return end_z
+    percent=(current_value-start_value)/(end_value-start_value)
     return (end_z-start_z)*percent + start_z
 
 def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
@@ -338,12 +340,18 @@ def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
     if dx == 0:
         y = y0
         while y <= y1:
-            plot(screen, color,  x0, y)
+            z = calculate_z(y0,y1,y,z0,z1)
+            if (z_buffer[int(y)][int(x0)] <= z):
+                plot(screen, color,  x0, y)
+                #z_buffer[int(y)][int(x0)] = z
             y = y + 1
     elif dy == 0:
         x = x0
         while x <= x1:
-            plot(screen, color, x, y0)
+            z = calculate_z(x0,x1,x,z0,z1)
+            if (z_buffer[int(y0)][int(x)] <= z):
+                plot(screen, color, x, y0)
+                #z_buffer[int(y0)][int(x)] = z
             x = x + 1
     elif dy < 0:
         d = 0
