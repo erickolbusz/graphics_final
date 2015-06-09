@@ -317,6 +317,10 @@ def add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
 def add_point( matrix, x, y, z=0 ):
     matrix.append( [x, y, z, 1] )
 
+#returns the z value on the line.
+def calculate_z(start_value,end_value,current_value,start_z,end_z):
+    percent=(current_value-start)/(end-start)
+    return (end_z-start_z)*percent + start_z
 
 def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
     dx = x1 - x0
