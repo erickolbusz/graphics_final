@@ -9,20 +9,22 @@ def parse(f_name):
             if (len(line) == 0):
                 filling_dict = (False, None)
             else:
-                colon_i = line.find(':')
-                spec = line[:colon_i]
-                value = line[colon_i+1:]
-                try:
-                    value = int(value)
-                except ValueError:
-                    pass
-                specs_dict[header].append((spec, value))
+                if header != 'HitObjects':
+                    colon_i = line.find(':')
+                    spec = line[:colon_i]
+                    value = line[colon_i+1:]
+                    try:
+                            value = int(value)
+                    except ValueError:
+                        pass
+                    specs_dict[header].append((spec, value))
+                specs_dict[header].append(line)
         if header_next and len(line) != 0:
             header = line[1:-1]
-            specs_dict[header] = []
-            filling_dict = (True, header)
+            if header not in ['Editor', 'Events']:
+                specs_dict[header] = []
+                filling_dict = (True, header)
         header_next = (len(line) == 0)
-    for i in specs_dict['Metadata']:
-        print i
+    return specs_dict
 
-parse("goreshit - o'er the flood (grumd) [The Flood Beneath].osu")
+d = parse("goreshit - o'er the flood (grumd) [The Flood Beneath].osu")
