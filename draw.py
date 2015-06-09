@@ -341,9 +341,14 @@ def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
         y = y0
         while y <= y1:
             z = calculate_z(y0,y1,y,z0,z1)
+            print z
+            print z_buffer[int(y)][int(x0)]
+            print "---"
             if (z_buffer[int(y)][int(x0)] <= z):
                 plot(screen, color,  x0, y)
-                #z_buffer[int(y)][int(x0)] = z
+                #errors
+                #print "y:" + str(y) +", x0:" + str(x0)
+                z_buffer[int(y)][int(x0)] = z
             y = y + 1
     elif dy == 0:
         x = x0
