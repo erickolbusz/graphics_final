@@ -10,7 +10,13 @@ def parse(f_name):
                 filling_dict = (False, None)
             else:
                 colon_i = line.find(':')
-                specs_dict[header].append((line[:colon_i], line[colon_i+1:]))
+                spec = line[:colon_i]
+                value = line[colon_i+1:]
+                try:
+                    value = int(value)
+                except ValueError:
+                    pass
+                specs_dict[header].append((spec, value))
         if header_next and len(line) != 0:
             header = line[1:-1]
             specs_dict[header] = []
