@@ -15,25 +15,20 @@ def add_polygon( points, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
 z_buffer = [[-sys.maxint for i in xrange(500)] for i in xrange(500)]
 
 def draw_polygons( points, screen, color ):
-
     if len(points) < 3:
         print 'Need at least 3 points to draw a polygon!'
         return
-
     p = 0
     while p < len( points ) - 2:
-
         if calculate_dot( points, p ) >= 0:
-            #consider passing z_buffer into drawline
-            #drawline:
-            ####if point.z > z_buffer[x,y], draw point, input
-            draw_line( screen, points[p][0], points[p][1],
-                       points[p+1][0], points[p+1][1], color )
-            draw_line( screen, points[p+1][0], points[p+1][1],
-                       points[p+2][0], points[p+2][1], color )
-            draw_line( screen, points[p+2][0], points[p+2][1],
-                       points[p][0], points[p][1], color )
+            draw_line( screen, points[p][0], points[p][1], points[p][2],
+                       points[p+1][0], points[p+1][1], points[p+1][2], color)
+            draw_line( screen, points[p+1][0], points[p+1][1], points[p+1][2],
+                       points[p+2][0], points[p+2][1], points[p+2][2], color )
+            draw_line( screen, points[p+2][0], points[p+2][1], points[p+2][2],
+                       points[p][0], points[p][1], points[p][2], color )
             #########scanline here
+
             #index of points
             top=0;
             mid=0;
@@ -311,8 +306,8 @@ def draw_lines( matrix, screen, color ):
         
     p = 0
     while p < len( matrix ) - 1:
-        draw_line( screen, matrix[p][0], matrix[p][1],
-                   matrix[p+1][0], matrix[p+1][1], color )
+        draw_line( screen, matrix[p][0], matrix[p][1], matrix[p][2],
+                   matrix[p+1][0], matrix[p+1][1], matrix[p+1][2], color )
         p+= 2
 
 def add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
@@ -323,7 +318,7 @@ def add_point( matrix, x, y, z=0 ):
     matrix.append( [x, y, z, 1] )
 
 
-def draw_line( screen, x0, y0, x1, y1, color ):
+def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
     dx = x1 - x0
     dy = y1 - y0
     if dx + dy < 0:
