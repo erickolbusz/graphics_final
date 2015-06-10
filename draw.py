@@ -13,6 +13,11 @@ def add_polygon( points, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
 
 #zbuffer
 z_buffer = [[-sys.maxint for i in xrange(500)] for i in xrange(500)]
+def reset_zbuf():
+    for i in range(500):
+        for j in range(500):
+            z_buffer[j][i] = -sys.maxint
+
 
 def draw_polygons( points, screen, color ):
     if len(points) < 3:
@@ -340,29 +345,32 @@ def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
     if dx == 0:
         y = y0
         while y <= y1:
+            #calculate the z value for x,y,z between x0,y0,z0, and x1,y1,z1
             z = calculate_z(y0,y1,y,z0,z1)
-            print z
-            print z_buffer[int(y)][int(x0)]
-            print "---"
-            if (z_buffer[int(y)][int(x0)] <= z):
-                plot(screen, color,  x0, y)
+            #if the current z is greater than the recorded z at (x,y) , plot it.
+            if (z > z_buffer[int(y)][int(x0)]):
+                plot(screen, color,   x0, y)
                 #errors
                 #print "y:" + str(y) +", x0:" + str(x0)
                 z_buffer[int(y)][int(x0)] = z
+                
             y = y + 1
     elif dy == 0:
         x = x0
         while x <= x1:
+            #calcuate z
             z = calculate_z(x0,x1,x,z0,z1)
+            #check if z value is above prev z value and plot
             if (z_buffer[int(y0)][int(x)] <= z):
                 plot(screen, color, x, y0)
-                #z_buffer[int(y0)][int(x)] = z
+                z_buffer[int(y0)][int(x)] = z
             x = x + 1
     elif dy < 0:
         d = 0
         x = x0
         y = y0
         while x <= x1:
+            #calculate z, check zbuf x0,x1,x,z0,z1
             plot(screen, color, x, y)
             if d > 0:
                 y = y - 1
@@ -374,6 +382,7 @@ def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
         x = x0
         y = y0
         while y <= y1:
+            #calc z, zbuf. y0 y1 y z0 z1
             plot(screen, color, x, y)
             if d > 0:
                 x = x - 1
@@ -385,6 +394,7 @@ def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
         x = x0
         y = y0
         while x <= x1:
+            #calc z, zbuf. x0 x1 x z0 z1
             plot(screen, color, x, y)
             if d > 0:
                 y = y + 1
@@ -396,6 +406,7 @@ def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
         x = x0
         y = y0
         while y <= y1:
+            # " " y0 y1 y z0 z1
             plot(screen, color, x, y)
             if d > 0:
                 x = x + 1
