@@ -1,0 +1,61 @@
+frames 30
+basename dance
+push
+rotate x 45
+rotate y 5 bodywobble1
+rotate y -5 bodywobble2
+rotate y 10 bodywobble3
+rotate y -10 bodywobble4
+rotate y 15 bodywobble5
+rotate x 90 bodywobble6
+rotate y -20 bodywobble6
+rotate z 20 bodywobble6
+move 250 200 0
+box 0 150 0 100 150 40
+push
+move 0 -150 0
+rotate y 20
+move 5 0 0 armwobble1
+move -5 0 0 armwobble2
+move 10 0 0 armwobble3
+move -10 0 0 armwobble4
+move 15 0 0 armwobble5
+move -20 0 0 armwobble6
+box 0 150 10 10 100 20
+pop
+push
+move 90 -150 0
+rotate z -20
+box -50 250 10 10 100 20
+pop
+push
+move 50 -10 0
+sphere 0 20 0 30
+pop
+push
+move 0 150 0
+rotate x 15
+rotate y 15
+rotate z 35
+box 20 120 10 10 100 20
+pop
+push
+move 90 150 0
+rotate x -30
+rotate y -25
+rotate z -55
+box -20 100 10 10 100 20
+pop
+pop
+vary bodywobble1 0 4 0 1
+vary bodywobble2 5 9 0 1
+vary bodywobble3 10 14 0 1
+vary bodywobble4 15 19 0 1
+vary bodywobble5 20 24 0 1
+vary bodywobble6 25 29 0 1
+vary armwobble1 0 4 0 1
+vary armwobble2 5 9 0 1
+vary armwobble3 10 14 0 1
+vary armwobble4 15 19 0 1
+vary armwobble5 20 24 0 1
+vary armwobble6 25 29 0 1

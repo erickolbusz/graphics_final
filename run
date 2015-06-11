@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#just to run stuff quickly
+python main.py
