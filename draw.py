@@ -24,25 +24,29 @@ def scanline_convert(top,middle,bottom,screen,):
     randomred = random.randint(0,255)
     randomgreen = random.randint(0,255)
     randomblue = random.randint(0,255)
-    for dy in xrange(int(round(middle[1] - bottom[1] + 1))):
-        if (middle[1] - bottom[1] != 0 and top[1] - bottom[1] != 0):
+    for dy in xrange(int(round(middle[1] - bottom[1] ) + 1)):
+        if (middle[1] != bottom[1] and top[1] != bottom[1]):
+            z_current0 = (top[2] - bottom[2]) * dy/(top[1]-bottom[1]) + bottom[2]
+            z_current1 = (middle[2] - bottom[2]) * dy/(middle[1]-bottom[1]) + bottom[2]
             draw_line(screen, 
                       bottom[0] + ((top[0] - bottom[0])/(top[1] - bottom[1]))*dy,
                       bottom[1] + dy,
-                      -10000,
+                      z_current0,
                       bottom[0] + ((middle[0] - bottom[0])/(middle[1] - bottom[1]))*dy,
                       bottom[1] + dy,
-                      -10000,
+                      z_current1,
                       [randomred, randomgreen, randomblue])
-    for dy in xrange(int(round(top[1] - middle[1] + 1))):
+    for dy in xrange(int(round(top[1] - middle[1]) + 1)):
         if (top[1]-bottom[1] != 0 and top[1]-middle[1] != 0):
+            z_current0 = (top[2] - bottom[2]) * dy/(top[1]-bottom[1]) + bottom[2]
+            z_current1 = (top[2] - middle[2]) * dy/(top[1]-middle[1]) + middle[2]
             draw_line(screen,
                       top[0] - ((top[0] - bottom[0])/(top[1] - bottom[1]))*dy,
                       top[1] - dy,
-                      -10000,
+                      z_current0,
                       top[0] - ((top[0] - middle[0])/(top[1] - middle[1]))*dy,
                       top[1] - dy,
-                      -10000,
+                      z_current1,
                       [randomred, randomgreen, randomblue])
             
 def draw_polygons( points, screen, color ):

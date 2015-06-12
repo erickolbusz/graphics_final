@@ -3,9 +3,8 @@ basename lol
 push
 move 300 300 0
 scale 1.5 1.5 1.5 
+rotate x 30
+rotate y 30
+rotate z 90
 sphere 0 0 0 100
 push
-rotate x 11
-rotate y 4
-rotate z 9
-
