@@ -45,7 +45,7 @@ def parse(f_name):
                             obj_dict['length'] = obj[6]
                         elif obj_dict['type'] == 'SPINNER':
                             obj_dict['length'] = obj[4]
-                        specs_dict[header].append(obj_dict)
+                        specs_dict[header][obj[1]] = obj_dict
                     else:
                         colon_i = line.find(':')
                         spec = line[:colon_i].strip()
@@ -63,11 +63,11 @@ def parse(f_name):
                                 value = int(value)
                             except ValueError:
                                 pass
-                            specs_dict[header].append((spec, value))
+                            specs_dict[header][spec] = value
             if header_next and len(line) != 0:
                 header = line[1:-1]
                 if header not in ['Editor', 'Metadata', 'Events', 'TimingPoints']:
-                    specs_dict[header] = []
+                    specs_dict[header] = {}
                     filling_dict = (True, header)
             header_next = (len(line) == 0)
     specs_dict['Colours'] = combo_colors
@@ -76,5 +76,23 @@ def parse(f_name):
 global OBJ_DICT
 OBJ_DICT = parse("goreshit - o'er the flood (grumd) [The Flood Beneath].osu")
 
-for i in OBJ_DICT:
-    print i, '\n', OBJ_DICT[i], '\n\n'
+# for i in OBJ_DICT:
+#     print i,'\n', OBJ_DICT[i], '\n\n'
+
+DIFFICULTY = OBJ_DICT["Difficulty"]
+print DIFFICULTY
+
+HIT_ITEMS = OBJ_DICT["HitObjects"]
+#print HIT_ITEMS
+
+def filter_items(start,end):
+    #reaction time in millis
+    AR = DIFFICULTY["ApproachRate"]
+    time = 1200
+    if AR < 5:
+        time+=(5-AR)* 120
+    else:
+        time-=(AR-5)* 150
+    v = 600/time
+    in_interval = lambda item: item["t"] <= end+time && item["t"] >= start+time
+    
