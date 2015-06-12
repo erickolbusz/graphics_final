@@ -1,3 +1,5 @@
+global OBJ_DICT
+
 def parse(f_name):
     f = open(f_name, 'r')
     specs_dict = {}
@@ -71,4 +73,8 @@ def parse(f_name):
     specs_dict['Colours'] = combo_colors
     return specs_dict
 
-d = parse("goreshit - o'er the flood (grumd) [The Flood Beneath].osu")
+global OBJ_DICT
+OBJ_DICT = parse("goreshit - o'er the flood (grumd) [The Flood Beneath].osu")
+
+for i in OBJ_DICT:
+    print i, '\n', OBJ_DICT[i], '\n\n'
