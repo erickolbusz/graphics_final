@@ -88,6 +88,7 @@ if AR < 5:
 else:
     time-=(AR-5)* 150
 v = 500/time # velocity of items
+#pixel per milliseconds
 
 def filter_items(start,end):
     swag=[]
@@ -104,10 +105,12 @@ def create_script(hit_objects,start_time,end_time):
     f.write("basename ctf\n")
     f.write("push\n")
     for each in hit_objects:
+        print each["t"]
+        print start_time
+        print v
+        f.write("sphere "+str(each["x"]) + " " + str(600+v*(each["t"]-start_time)) + " 0 30\n")
         
-        f.write("sphere "+str(each["x"]) + " " + str(600+v*each["t"]-start_time) + " 0 30\n")
-        
-    f.write("move 0 -" + str( (end_time-start_time)*v/1000*30 ) + " 0 drop\n")
+    f.write("move 0 -" + str( (end_time-start_time)*v ) + " 0 drop\n")
     f.write("vary drop 0 29 0 1\n")
     f.close()
     
