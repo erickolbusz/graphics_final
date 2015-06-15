@@ -66,7 +66,7 @@ def first_pass(commands):
         exit(2)
     if found_basename == 1:
         if commands[1][0] == "basename":
-            has_basename = True
+            has_bas5ename = True
     if found_basename == 0:
         use_default = True
         print 'No basename defined, using "image" as file prefix.'

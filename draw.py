@@ -4,7 +4,9 @@ from gmath import calculate_dot
 from math import cos, sin, pi
 import sys
 from random import randint
-
+import time
+global i
+i = 0
 MAX_STEPS = 100
 
 def add_polygon( points, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
@@ -36,31 +38,33 @@ def scanline_convert(p, p1, p2, screen, color=[randint(0,255),randint(0,255),ran
     b = sorted_points[0]
     m = sorted_points[1]
     t = sorted_points[2]
-    '''
+
     dy1 = int(round(m[1] - b[1]) + 1)
     dy2 = int(round(t[1] - m[1]))
-    
-    for d1 in range(dy1):
-            x1 = (m[0]*d1 + b[0]*(dy1-d1))/dy1
-            z1 = (m[2]*d1 + b[2]*(dy1-d1))/dy1
-            
-            x2 = (t[0]*d1 + b[0]*(dy1+dy2-d1))/(dy1+dy2)
-            z2 = (t[2]*d1 + b[2]*(dy1+dy2-d1))/(dy1+dy2)
+    if dy1 != 0:
+        for d1 in range(dy1):
+                x1 = (m[0]*d1 + b[0]*(dy1-d1))/dy1
+                z1 = (m[2]*d1 + b[2]*(dy1-d1))/dy1
+                
+                x2 = (t[0]*d1 + b[0]*(dy1+dy2-d1))/(dy1+dy2)
+                z2 = (t[2]*d1 + b[2]*(dy1+dy2-d1))/(dy1+dy2)
 
-            y = b[1] + d1
-            draw_line(screen, x1, y, z1, x2, y, z2, color)
-    
-    for d2 in range(dy2):
-            x1 = (m[0]*(dy2-d2) + t[0]*d2)/dy2
-            z1 = (m[2]*(dy2-d2) + t[2]*d2)/dy2
-            
-            x2 = (b[0]*(dy2-d2) + t[0]*(dy1+d2))/(dy1+dy2)
-            z2 = (b[2]*(dy2-d2) + t[2]*(dy1+d2))/(dy1+dy2)
+                y = b[1] + d1
+                draw_line(screen, x1, y, z1, x2, y, z2, color)
+    if dy2 != 0:
+        for d2 in range(dy2):
+                x1 = (m[0]*(dy2-d2) + t[0]*d2)/dy2
+                z1 = (m[2]*(dy2-d2) + t[2]*d2)/dy2
+                
+                x2 = (b[0]*(dy2-d2) + t[0]*(dy1+d2))/(dy1+dy2)
+                z2 = (b[2]*(dy2-d2) + t[2]*(dy1+d2))/(dy1+dy2)
 
-            y = m[1] + d2
-            draw_line(screen, x1, y, z1, x2, y, z2, color)
+                y = m[1] + d2
+                draw_line(screen, x1, y, z1, x2, y, z2, color)
      '''
-    
+    global i
+    print time.time(), '\n', i, '\n\n'
+    i+=1
     x1 = b[0]
     x2 = b[0]
     dx1 = (t[0]-b[0])/int(t[1]-b[1])
@@ -74,6 +78,7 @@ def scanline_convert(p, p1, p2, screen, color=[randint(0,255),randint(0,255),ran
     dz2 = (m[2]-b[2])/int(m[1]-b[1])
     
     while y < m[1]:
+        print y
         x1 += dx1
         x2 += dx2
         y += 1
@@ -93,7 +98,7 @@ def scanline_convert(p, p1, p2, screen, color=[randint(0,255),randint(0,255),ran
         y += 1
         z1 += dz1
         z2 += dz2
-        draw_line(screen, int(x1), int(y), int(z1), int(x2), int(y), int(z2), color)
+        draw_line(screen, int(x1), int(y), int(z1), int(x2), int(y), int(z2), color)'''
     
     
 def draw_polygons( points, screen, color ):

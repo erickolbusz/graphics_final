@@ -33,6 +33,7 @@ def clear_screen( screen ):
             screen[x][y] = DEFAULT_COLOR[:]
 
 def save_ppm( screen, fname ):
+    print "SAVING"
     f = open( fname, 'w' )
     ppm = 'P3\n' + str(len(screen[0])) +' '+ str(len(screen)) +' '+ str(MAX_COLOR) +'\n'
     for y in range( len(screen) ):
