@@ -94,5 +94,5 @@ def filter_items(start,end):
     else:
         time-=(AR-5)* 150
     v = 600/time
-    in_interval = lambda item: item["t"] <= end+time && item["t"] >= start+time
+    in_interval = lambda item: item["t"] <= end+time and item["t"] >= start+time
     
