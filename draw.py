@@ -2,7 +2,8 @@ from display import *
 from matrix import *
 from gmath import calculate_dot
 from math import cos, sin, pi
-import sys, random
+import sys
+from random import randint
 
 MAX_STEPS = 100
 
@@ -20,35 +21,81 @@ def reset_zbuf():
 
 #scanline draws
 #-- p0=bottom, p1=mid, p2=top
-def scanline_convert(top,middle,bottom,screen,):
-    randomred = random.randint(0,255)
-    randomgreen = random.randint(0,255)
-    randomblue = random.randint(0,255)
-    for dy in xrange(int(round(middle[1] - bottom[1] ) + 1)):
-        if (middle[1] != bottom[1] and top[1] != bottom[1]):
-            z_current0 = (top[2] - bottom[2]) * dy/(top[1]-bottom[1]) + bottom[2]
-            z_current1 = (middle[2] - bottom[2]) * dy/(middle[1]-bottom[1]) + bottom[2]
-            draw_line(screen, 
-                      bottom[0] + ((top[0] - bottom[0])/(top[1] - bottom[1]))*dy,
-                      bottom[1] + dy,
-                      z_current0,
-                      bottom[0] + ((middle[0] - bottom[0])/(middle[1] - bottom[1]))*dy,
-                      bottom[1] + dy,
-                      z_current1,
-                      [randomred, randomgreen, randomblue])
-    for dy in xrange(int(round(top[1] - middle[1]) + 1)):
-        if (top[1]-bottom[1] != 0 and top[1]-middle[1] != 0):
-            z_current0 = (top[2] - bottom[2]) * dy/(top[1]-bottom[1]) + bottom[2]
-            z_current1 = (top[2] - middle[2]) * dy/(top[1]-middle[1]) + middle[2]
-            draw_line(screen,
-                      top[0] - ((top[0] - bottom[0])/(top[1] - bottom[1]))*dy,
-                      top[1] - dy,
-                      z_current0,
-                      top[0] - ((top[0] - middle[0])/(top[1] - middle[1]))*dy,
-                      top[1] - dy,
-                      z_current1,
-                      [randomred, randomgreen, randomblue])
+def scanline_convert(p, p1, p2, screen, color=[randint(0,255),randint(0,255),randint(0,255)]):
+    for rgb in range(len(color)):
+        color[rgb] = randint(0,255)
+
+    #gotta draw dat triangle tho
+    draw_line(screen, p[0], p[1], p[2], p1[0], p1[1], p1[2], color)
+    draw_line(screen, p[0], p[1], p[2], p2[0], p2[1], p2[2], color)
+    draw_line(screen, p1[0], p1[1], p1[2], p2[0], p2[1], p2[2], color)
+
+    #god bless http://stackoverflow.com/questions/21068315/python-sort-first-element-of-list
+    sorted_points = [p, p1, p2]
+    sorted_points.sort(key = lambda x: x[1])
+    b = sorted_points[0]
+    m = sorted_points[1]
+    t = sorted_points[2]
+    '''
+    dy1 = int(round(m[1] - b[1]) + 1)
+    dy2 = int(round(t[1] - m[1]))
+    
+    for d1 in range(dy1):
+            x1 = (m[0]*d1 + b[0]*(dy1-d1))/dy1
+            z1 = (m[2]*d1 + b[2]*(dy1-d1))/dy1
             
+            x2 = (t[0]*d1 + b[0]*(dy1+dy2-d1))/(dy1+dy2)
+            z2 = (t[2]*d1 + b[2]*(dy1+dy2-d1))/(dy1+dy2)
+
+            y = b[1] + d1
+            draw_line(screen, x1, y, z1, x2, y, z2, color)
+    
+    for d2 in range(dy2):
+            x1 = (m[0]*(dy2-d2) + t[0]*d2)/dy2
+            z1 = (m[2]*(dy2-d2) + t[2]*d2)/dy2
+            
+            x2 = (b[0]*(dy2-d2) + t[0]*(dy1+d2))/(dy1+dy2)
+            z2 = (b[2]*(dy2-d2) + t[2]*(dy1+d2))/(dy1+dy2)
+
+            y = m[1] + d2
+            draw_line(screen, x1, y, z1, x2, y, z2, color)
+     '''
+    
+    x1 = b[0]
+    x2 = b[0]
+    dx1 = (t[0]-b[0])/int(t[1]-b[1])
+    dx2 = (m[0]-b[0])/int(m[1]-b[1])
+    
+    y = b[1]
+    
+    z1 = b[2]
+    z2 = b[2]
+    dz1 = (t[2]-b[2])/int(t[1]-b[1])
+    dz2 = (m[2]-b[2])/int(m[1]-b[1])
+    
+    while y < m[1]:
+        x1 += dx1
+        x2 += dx2
+        y += 1
+        z1 += dz1
+        z2 += dz2
+        draw_line(screen, int(x1), int(y), int(z1), int(x2), int(y), int(z2), color)
+
+    x2 = m[0]
+    dx2 = (t[0]-m[0])/int(t[1]-m[1])
+    
+    z2 = m[2]
+    dz2 = (t[2]-m[2])/int(t[1]-m[1])
+    
+    while x2 < t[1]:
+        x1 += dx1
+        x2 += dx2
+        y += 1
+        z1 += dz1
+        z2 += dz2
+        draw_line(screen, int(x1), int(y), int(z1), int(x2), int(y), int(z2), color)
+    
+    
 def draw_polygons( points, screen, color ):
     if len(points) < 3:
         print 'Need at least 3 points to draw a polygon!'
