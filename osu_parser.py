@@ -74,25 +74,49 @@ def parse(f_name):
     return specs_dict
 
 global OBJ_DICT
+
 OBJ_DICT = parse("goreshit - o'er the flood (grumd) [The Flood Beneath].osu")
 
-# for i in OBJ_DICT:
-#     print i,'\n', OBJ_DICT[i], '\n\n'
-
 DIFFICULTY = OBJ_DICT["Difficulty"]
-print DIFFICULTY
 
 HIT_ITEMS = OBJ_DICT["HitObjects"]
-#print HIT_ITEMS
+
+AR = DIFFICULTY["ApproachRate"]
+time = 1200.0 # reaction time
+if AR < 5:
+    time+=(5-AR)* 120
+else:
+    time-=(AR-5)* 150
+v = 500/time # velocity of items
+#pixel per milliseconds
 
 def filter_items(start,end):
-    #reaction time in millis
-    AR = DIFFICULTY["ApproachRate"]
-    time = 1200
-    if AR < 5:
-        time+=(5-AR)* 120
-    else:
-        time-=(AR-5)* 150
-    v = 600/time
-    in_interval = lambda item: item["t"] <= end+time && item["t"] >= start+time
+    swag=[]
+    for key in HIT_ITEMS.keys():
+        x = HIT_ITEMS[key]
+        if x["t"] >=  start and x["t"] < end+time:
+            swag.append(x)
+    return swag
+
+
+def create_script(hit_objects,start_time,end_time):
+    f= open("ctf.mdl","w")
+    f.write("frames 30\n")
+    f.write("basename ctf\n")
+    f.write("push\n")
+    for each in hit_objects:
+        print each["t"]
+        print start_time
+        print v
+        f.write("sphere "+str(each["x"]) + " " + str(600+v*(each["t"]-start_time)) + " 0 30\n")
+        
+    f.write("move 0 -" + str( (end_time-start_time)*v ) + " 0 drop\n")
+    f.write("vary drop 0 29 0 1\n")
+    f.close()
     
+#nothing
+first_list = filter_items(0,10000)
+second_list = filter_items(10000,20000)
+
+
+create_script(second_list,10000,20000)
