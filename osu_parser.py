@@ -108,9 +108,10 @@ def create_script(hit_objects,start_time,end_time):
     f.write("move 0 -" + str( (end_time-start_time) ) + " 0 drop\n")
     for each in hit_objects:
         f.write("sphere "+str(each["x"]) + " " + str(600+v*(each["t"]-start_time)) + " 0 30\n")
-        f.write("push\n")
-        print str(v*(each["t"]-start_time))
-    
+        #f.write("push\n")
+        #print str(v*(each["t"]-start_time))
+    f.write("pop\n")
+    f.write("push\n")
     f.write("vary drop 0 29 0 1\n")
     f.close()
     
