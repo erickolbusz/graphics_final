@@ -61,7 +61,7 @@ def scanline_convert(p, p1, p2, screen, color=[randint(0,255),randint(0,255),ran
 
                 y = m[1] + d2
                 draw_line(screen, x1, y, z1, x2, y, z2, color)
-     '''
+    '''
     global i
     print time.time(), '\n', i, '\n\n'
     i+=1
@@ -207,7 +207,7 @@ def add_box( points, x, y, z, width, height, depth ):
 
 
 def add_sphere( points, cx, cy, cz, r, step ):
-    
+    print cy
     num_steps = MAX_STEPS / step
     temp = []
 

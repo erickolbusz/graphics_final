@@ -205,4 +205,4 @@ def run(filename):
             reset_zbuf()
         
     
-run("sphere.mdl")
+#run("sphere.mdl")

@@ -100,23 +100,22 @@ def filter_items(start,end):
 
 
 def create_script(hit_objects,start_time,end_time):
+    ##flag
     f= open("ctf.mdl","w")
     f.write("frames 30\n")
     f.write("basename ctf\n")
     f.write("push\n")
+    f.write("move 0 -" + str( (end_time-start_time) ) + " 0 drop\n")
     for each in hit_objects:
-        print each["t"]
-        print start_time
-        print v
         f.write("sphere "+str(each["x"]) + " " + str(600+v*(each["t"]-start_time)) + " 0 30\n")
-        
-    f.write("move 0 -" + str( (end_time-start_time)*v ) + " 0 drop\n")
+        f.write("push\n")
+        print str(v*(each["t"]-start_time))
+    
     f.write("vary drop 0 29 0 1\n")
     f.close()
     
 #nothing
 first_list = filter_items(0,10000)
+
 second_list = filter_items(10000,20000)
-
-
 create_script(second_list,10000,20000)
