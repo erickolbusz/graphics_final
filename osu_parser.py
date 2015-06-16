@@ -156,8 +156,8 @@ def create_script(hit_objects,start_time,end_time):
     for index in range(len(swag))[0:-2]:
         f.write("move " + str(swag[index+1]["x"]-swag[index]["x"]) + ".0 0 0 KNOB"+str(index+1)+"\n")
     
-    f.write("box 400 20 0 50 -60 10\n")
-    f.write("box 350 80 0 150 -10 10 \n") 
+    f.write("box 400 10 0 50 -40 10\n")
+    f.write("box 350 40 0 150 -10 10 \n") 
     
     f.write("vary KNOB0 0 "+ str( int((swag[0]["t"]-start_time)/100.0) *3)+ " 0 1\n")
     
