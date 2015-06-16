@@ -12,7 +12,7 @@ LIGHTS = []
 AMBIENT = [100, 100, 100]
 DIFFUSE = [1, 1, 1]
 SPECULAR = [0, 0, 0]
-SPEC_K = 2
+SPEC_K = 8
 DEFAULT_COLOR = [0, 0, 0]
 
 def new_screen( width = XRES, height = YRES ):

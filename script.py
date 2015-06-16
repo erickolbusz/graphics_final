@@ -166,6 +166,24 @@ def run(filename):
                 stack.pop()
             if cmd == "color":
                 color = [command[1], command[2], command[3]]
+            if cmd == "light":
+                LIGHTS.append((command[1], command[2], command[3], command[4], command[5], command[6]))
+            if cmd == "ambient":
+                AMBIENT[0] = command[1]
+                AMBIENT[1] = command[2]
+                AMBIENT[2] = command[3]
+            if cmd == "diffuse":
+                DIFFUSE[0] = command[1]
+                DIFFUSE[1] = command[2]
+                DIFFUSE[2] = command[3]
+            if cmd == "specular":
+                if len(command) == 2:
+                    SPEC_K = command[1]
+                else:
+                    SPECULAR[0] = command[1]
+                    SPECULAR[1] = command[2]
+                    SPECULAR[2] = command[3]
+                    
             if cmd == "move":
                 if frames > 1 and command[4] in knobs[frame]:
                     k = knobs[frame][command[4]]
