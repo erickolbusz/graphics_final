@@ -167,7 +167,7 @@ def run(filename):
             if cmd == "color":
                 color = [command[1], command[2], command[3]]
             if cmd == "light":
-                LIGHTS.append((command[1], command[2], command[3], command[4], command[5], command[6]))
+                LIGHTS.append(([command[1], command[2], command[3]], [command[4], command[5], command[6]]))
             if cmd == "ambient":
                 AMBIENT[0] = command[1]
                 AMBIENT[1] = command[2]
@@ -183,7 +183,6 @@ def run(filename):
                     SPECULAR[0] = command[1]
                     SPECULAR[1] = command[2]
                     SPECULAR[2] = command[3]
-                    
             if cmd == "move":
                 if frames > 1 and command[4] in knobs[frame]:
                     k = knobs[frame][command[4]]
@@ -230,5 +229,5 @@ def run(filename):
             stack = []
             reset_zbuf()
 
-run("ctf.mdl")
-#run("sphere.mdl")
+#run("ctf.mdl")
+run("sphere.mdl")

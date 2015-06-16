@@ -1,3 +1,6 @@
+from matrix import scalar_mult
+from math import sqrt
+
 def calculate_normal( ax, ay, az, bx, by, bz ):
     normal = [0,0,0]
     normal[0] = ay * bz - az * by
@@ -6,10 +9,8 @@ def calculate_normal( ax, ay, az, bx, by, bz ):
     return normal
 
 def normalize(v):
-    magnitude = sum([comp**2 for comp in v])**0.5
-    if magnitude == 0:
-        return v
-    return [comp/magnitude for comp in v]
+    if v != [0,0,0]:
+        scalar_mult([v], 1 / sqrt(v[0] ** 2 + v[1] ** 2 + v[2] ** 2))
 
 def calculate_dot( points, i ):
     #get as and bs to calculate the normal

@@ -2,8 +2,8 @@ from subprocess import Popen, PIPE
 from os import remove
 
 #constants
-XRES = 800
-YRES = 600
+XRES = 1000
+YRES = 1000
 MAX_COLOR = 255
 RED = 0
 GREEN = 1
@@ -37,6 +37,7 @@ def clear_screen( screen ):
             screen[y][x] = DEFAULT_COLOR[:]
 
 def save_ppm( screen, fname ):
+    print len(screen)
     print "SAVING"
     f = open( fname, 'w' )
     ppm = 'P3\n' + str(len(screen[0])) +' '+ str(len(screen)) +' '+ str(MAX_COLOR) +'\n'
@@ -44,6 +45,7 @@ def save_ppm( screen, fname ):
         row = ''
         for x in range( len(screen[y]) ):
             pixel = screen[y][x]
+            #print pixel
             row+= str( pixel[ RED ] ) + ' '
             row+= str( pixel[ GREEN ] ) + ' '
             row+= str( pixel[ BLUE ] ) + ' '

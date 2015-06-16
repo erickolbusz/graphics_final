@@ -179,10 +179,5 @@ def create_script(hit_objects,start_time,end_time):
 #nothing
 first_list = filter_items(0,10000)
 
-<<<<<<< HEAD
 second_list = filter_items(17000,30000)
 create_script(second_list,17000,30000)
-=======
-second_list = filter_items(0000,40000)
-create_script(second_list,0000,40000)
->>>>>>> 5dd614e4f362cc1f5aa5cb9ccddf1cc899f43ab9
