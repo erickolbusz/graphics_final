@@ -158,7 +158,7 @@ def p_statement_screen(p):
     """statement : SCREEN INT INT
                  | SCREEN"""
     if len(p) == 2:
-        commands.append((p[1], 500, 500))
+        commands.append((p[1], 600, 800))
     else:
         commands.append((p[1], p[2], p[3]))
 

@@ -2,8 +2,8 @@ from subprocess import Popen, PIPE
 from os import remove
 
 #constants
-XRES = 500
-YRES = 500
+XRES = 800
+YRES = 600
 MAX_COLOR = 255
 RED = 0
 GREEN = 1
@@ -25,12 +25,12 @@ def plot( screen, color, x, y ):
     y = int(y)
     newy = YRES - 1 - y
     if ( x >= 0 and x < XRES and newy >= 0 and newy < YRES ):
-        screen[x][newy] = color[:]
+        screen[newy][x] = color[:]
 
 def clear_screen( screen ):
     for y in range( len(screen) ):
         for x in range( len(screen[y]) ):
-            screen[x][y] = DEFAULT_COLOR[:]
+            screen[y][x] = DEFAULT_COLOR[:]
 
 def save_ppm( screen, fname ):
     print "SAVING"
@@ -39,7 +39,7 @@ def save_ppm( screen, fname ):
     for y in range( len(screen) ):
         row = ''
         for x in range( len(screen[y]) ):
-            pixel = screen[x][y]
+            pixel = screen[y][x]
             row+= str( pixel[ RED ] ) + ' '
             row+= str( pixel[ GREEN ] ) + ' '
             row+= str( pixel[ BLUE ] ) + ' '

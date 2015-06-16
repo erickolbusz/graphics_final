@@ -15,10 +15,10 @@ def add_polygon( points, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
     add_point( points, x2, y2, z2 )
 
 #zbuffer
-z_buffer = [[-sys.maxint for i in xrange(500)] for i in xrange(500)]
+z_buffer = [[-sys.maxint for i in xrange(800)] for i in xrange(600)]
 def reset_zbuf():
-    for i in range(500):
-        for j in range(500):
+    for i in range(800):
+        for j in range(600):
             z_buffer[j][i] = -sys.maxint
 
 #scanline draws
@@ -31,7 +31,7 @@ def scanline_convert(p, p1, p2, screen, color=[randint(0,255),randint(0,255),ran
     draw_line(screen, p[0], p[1], p[2], p1[0], p1[1], p1[2], color)
     draw_line(screen, p[0], p[1], p[2], p2[0], p2[1], p2[2], color)
     draw_line(screen, p1[0], p1[1], p1[2], p2[0], p2[1], p2[2], color)
-
+    
     #god bless http://stackoverflow.com/questions/21068315/python-sort-first-element-of-list
     sorted_points = [p, p1, p2]
     sorted_points.sort(key = lambda x: x[1])
@@ -207,7 +207,6 @@ def add_box( points, x, y, z, width, height, depth ):
 
 
 def add_sphere( points, cx, cy, cz, r, step ):
-    print cy
     num_steps = MAX_STEPS / step
     temp = []
 
@@ -428,7 +427,8 @@ def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
         y = y0
         while y <= y1:
             z = calculate_z(y0,y1,y,z0,z1)
-            if (y<len(z_buffer) and x0 <len(z_buffer) and z > z_buffer[int(y)][int(x0)]):
+            if (y<len(z_buffer) and x0 <len(z_buffer[0]) and
+                y >= 0 and x0 >= 0 and z > z_buffer[int(y)][int(x0)]):
                 plot(screen, color,   x0, y)
                 z_buffer[int(y)][int(x0)] = z
                 
@@ -437,7 +437,8 @@ def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
         x = x0
         while x <= x1:
             z = calculate_z(x0,x1,x,z0,z1)
-            if (y0<len(z_buffer) and x <len(z_buffer) and z_buffer[int(y0)][int(x)] <= z):
+            if (y0<len(z_buffer) and x <len(z_buffer[0]) and
+                y0 >= 0 and x >= 0 and z_buffer[int(y0)][int(x)] <= z):
                 plot(screen, color, x, y0)
                 z_buffer[int(y0)][int(x)] = z
             x = x + 1
@@ -447,7 +448,8 @@ def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
         y = y0
         while x <= x1:
             z = calculate_z(x0,x1,x,z0,z1)
-            if (y0<len(z_buffer) and x <len(z_buffer) and z_buffer[int(y0)][int(x)] <= z):
+            if (y0<len(z_buffer) and x <len(z_buffer[0]) and
+                y0 >= 0 and x >= 0 and z_buffer[int(y0)][int(x)] <= z):
                 z_buffer[int(y0)][int(x)] = z
                 plot(screen, color, x, y)
             if d > 0:
@@ -461,7 +463,8 @@ def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
         y = y0
         while y <= y1:
             z = calculate_z(y0,y1,y,z0,z1)
-            if (y<len(z_buffer) and x <len(z_buffer) and z_buffer[int(y)][int(x)] <= z):
+            if (y<len(z_buffer) and x <len(z_buffer[0]) and
+                y >= 0 and x >= 0 and z_buffer[int(y)][int(x)] <= z):
                 z_buffer[int(y)][int(x)] = z
                 plot(screen, color, x, y)
             if d > 0:
@@ -476,7 +479,8 @@ def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
         while x <= x1:
             #calc z, zbuf. x0 x1 x z0 z1
             z = calculate_z(x0,x1,x,z0,z1)
-            if (y<len(z_buffer) and x <len(z_buffer) and z_buffer[int(y)][int(x)] <= z):
+            if (y<len(z_buffer) and x <len(z_buffer[0]) and
+                y >= 0 and x >= 0 and z_buffer[int(y)][int(x)] <= z):
                 z_buffer[int(y)][int(x)] = z
                 plot(screen, color, x, y)
             if d > 0:
@@ -491,7 +495,8 @@ def draw_line( screen, x0, y0, z0, x1, y1, z1, color ):
         while y <= y1:
             # " " y0 y1 y z0 z1
             z = calculate_z(y0,y1,y,z0,z1)
-            if (y<len(z_buffer) and x <len(z_buffer) and z_buffer[int(y)][int(x)] <= z):
+            if (y<len(z_buffer) and x <len(z_buffer[0]) and
+                y >= 0 and x >= 0 and z_buffer[int(y)][int(x)] <= z):
                 z_buffer[int(y)][int(x)] = z
                 plot(screen, color, x, y)
             if d > 0:
