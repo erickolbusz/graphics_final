@@ -111,7 +111,7 @@ def create_script(hit_objects,start_time,end_time):
         f.write("sphere "+str(each["x"]) + " " + str(v*(each["t"]-start_time)) + " 0 30\n")
         
         ##for bezier
-        #pass B|x:y|x:y through here, or at least the last X in the list
+        #pass B|x:y|x:y through here, or at least the last x and the # of repeats.
         #add another hit sphere here too.
         ##
         
