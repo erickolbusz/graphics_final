@@ -199,7 +199,7 @@ def run(filename):
             if cmd == "display":
                 display(screen)
         if frames > 1:
-            save_extension(screen, "animations/" + basename + "%03d"%frame + ".png")
+            save_extension(screen, "animations/" + basename + "%05d"%frame + ".png")
             screen = new_screen()
             stack = []
             reset_zbuf()
