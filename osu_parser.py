@@ -105,7 +105,7 @@ def create_script(hit_objects,start_time,end_time):
     ##we make it 30 fps.
     ##t = milliseconds.
     ## t/33.333 = number of frames.
-    frames = (end_time-start_time)/1000*30
+    frames = (end_time-start_time)/1000*20+100 
     
     f= open("ctf.mdl","w")
     f.write("frames " +str(frames) + "\n")
@@ -161,11 +161,11 @@ def create_script(hit_objects,start_time,end_time):
     f.write("box 400 10 0 50 -40 10\n")
     f.write("box 350 40 0 150 -10 10 \n") 
     
-    f.write("vary KNOB0 0 "+ str( int((swag[0]["t"]-start_time)/100.0) *3)+ " 0 1\n")
+    f.write("vary KNOB0 0 "+ str( int((swag[0]["t"]-start_time)/100.0) *2)+ " 0 1\n")
     
     for index in range(len(swag))[0:-2]:
-        frame_num=int((swag[index]["t"]-start_time)/100.0*3)
-        next_frame_num = int((swag[index+1]["t"]-start_time)/100.0*3)
+        frame_num=int((swag[index]["t"]-start_time)/100.0*2)
+        next_frame_num = int((swag[index+1]["t"]-start_time)/100.0*2)
         f.write("vary KNOB"+str(index+1)+" "+ str(frame_num) +" " + 
                 str(next_frame_num) +
                 " 0 1\n")
@@ -179,5 +179,10 @@ def create_script(hit_objects,start_time,end_time):
 #nothing
 first_list = filter_items(0,10000)
 
+<<<<<<< HEAD
 second_list = filter_items(17000,30000)
 create_script(second_list,17000,30000)
+=======
+second_list = filter_items(0000,40000)
+create_script(second_list,0000,40000)
+>>>>>>> 5dd614e4f362cc1f5aa5cb9ccddf1cc899f43ab9
