@@ -136,14 +136,14 @@ def create_script(hit_objects,start_time,end_time):
     f.write("push\n")
     
     
-    f.write("move 200 0 0 KNOBONE\n")
-    f.write("move 0 200 0 KNOBTWO\n")
+    f.write("move " + str(400-hit_objects[0]["x"]) + " 0 0 KNOB1\n")
+    f.write("move 0 200 0 KNOB2\n")
     
 
     f.write("box 400 100 0 50 60 10\n")
     
-    f.write("vary KNOBONE 0 14 0 1\n")
-    f.write("vary KNOBTWO 15 29 0 1\n")
+    #f.write("vary KNOB1 0 " +  (hit_objects[0]["t"] - start_ +  " 0 1\n")
+    f.write("vary KNOB2 15 29 0 1\n")
     
 
 
