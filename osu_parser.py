@@ -96,7 +96,8 @@ def filter_items(start,end):
         x = HIT_ITEMS[key]
         if x["t"] >=  start and x["t"] < end+time:
             swag.append(x)
-    return swag
+    newlist = sorted(swag,key = lambda k: k["t"])
+    return newlist
 
 
 def create_script(hit_objects,start_time,end_time):
