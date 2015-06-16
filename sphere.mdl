@@ -1,4 +1,8 @@
 push
+light 0 100 -500 255 255 251
+specular .2 .2 .2
+diffuse 0 .8 .8
+ambient 200 15 31
 move 300 300 0
 scale 1.5 1.5 1.5 
 rotate x 30

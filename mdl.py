@@ -11,7 +11,9 @@ tokens = (
     "CONSTANTS", 
     "SAVE_COORDS", 
     "CAMERA", 
-    "AMBIENT", 
+    "AMBIENT",
+    "DIFFUSE",
+    "SPECULAR",
     "TORUS", 
     "SPHERE", 
     "BOX", 
@@ -54,7 +56,9 @@ reserved = {
     "constants" : "CONSTANTS",
     "save_coord_system" : "SAVE_COORDS", 
     "camera" : "CAMERA", 
-    "ambient" : "AMBIENT", 
+    "ambient" : "AMBIENT",
+    "diffuse" : "DIFFUSE",
+    "specular" : "SPECULAR",
     "torus" : "TORUS", 
     "sphere" : "SPHERE", 
     "box" : "BOX", 
@@ -260,6 +264,17 @@ def p_statement_color(p):
     "statement : COLOR NUMBER NUMBER NUMBER"
     commands.append(tuple(p[1:]))
     
+def p_statement_lighting(p):
+    """statement : AMBIENT NUMBER NUMBER NUMBER 
+                 | DIFFUSE NUMBER NUMBER NUMBER
+                 | SPECULAR NUMBER 
+                 | SPECULAR NUMBER NUMBER NUMBER"""
+    commands.append(tuple(p[1:] + [None]))
+
+def p_statement_light(p):
+    """statement : LIGHT NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER"""
+    commands.append(tuple(p[1:] + [None]))
+           
 def p_SYMBOL(p):
     """SYMBOL : XYZ
               | ID"""

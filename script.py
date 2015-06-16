@@ -2,6 +2,7 @@ import mdl
 from display import *
 from matrix import *
 from draw import *
+from lighting import *
 import copy
 
 basename = "image"
@@ -205,10 +206,11 @@ def run(filename):
             if cmd == "display":
                 display(screen)
         if frames > 1:
-            save_extension(screen, "animations/" + basename + "%05d"%frame + ".png")
+            #save_extension(screen, "animations/" + basename + "%05d"%frame + ".png")
+            save_ppm(screen, "animations/" + basename + "%05d"%frame + ".ppm")
             screen = new_screen()
             stack = []
             reset_zbuf()
 
-run("ctf.mdl")
-#run("sphere.mdl")
+#run("ctf.mdl")
+run("sphere.mdl")

@@ -1,5 +1,6 @@
 from display import *
 from matrix import *
+from lighting import *
 from gmath import calculate_dot
 from math import cos, sin, pi
 import sys
@@ -26,6 +27,7 @@ def reset_zbuf():
 def scanline_convert(p, p1, p2, screen, color=[randint(0,255),randint(0,255),randint(0,255)]):
     '''for rgb in range(len(color)):
         color[rgb] = randint(0,255)'''
+    color = get_light(p, p1, p2)
 
     #gotta draw dat triangle tho
     draw_line(screen, p[0], p[1], p[2], p1[0], p1[1], p1[2], color)
@@ -61,6 +63,7 @@ def scanline_convert(p, p1, p2, screen, color=[randint(0,255),randint(0,255),ran
 
                 y = m[1] + d2
                 draw_line(screen, x1, y, z1, x2, y, z2, color)
+    return color
     '''
     global i
     print time.time(), '\n', i, '\n\n'
@@ -131,14 +134,14 @@ def draw_polygons( points, screen, color ):
             top = points[p + top]
             mid = points[p + mid]
             bottom = points[p + bottom]
-            scanline_convert(top,mid,bottom,screen,color)
+            real_color = scanline_convert(top,mid,bottom,screen,color)
             ##########scanline ends here
             draw_line( screen, points[p][0], points[p][1], points[p][2],
-                       points[p+1][0], points[p+1][1], points[p+1][2], color)
+                       points[p+1][0], points[p+1][1], points[p+1][2], real_color)
             draw_line( screen, points[p+1][0], points[p+1][1], points[p+1][2],
-                       points[p+2][0], points[p+2][1], points[p+2][2], color )
+                       points[p+2][0], points[p+2][1], points[p+2][2], real_color )
             draw_line( screen, points[p+2][0], points[p+2][1], points[p+2][2],
-                       points[p][0], points[p][1], points[p][2], color )
+                       points[p][0], points[p][1], points[p][2], real_color )
             
         p+= 3
         

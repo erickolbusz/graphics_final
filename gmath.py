@@ -5,6 +5,12 @@ def calculate_normal( ax, ay, az, bx, by, bz ):
     normal[2] = ax * by - ay * bx
     return normal
 
+def normalize(v):
+    magnitude = sum([comp**2 for comp in v])**0.5
+    if magnitude == 0:
+        return v
+    return [comp/magnitude for comp in v]
+
 def calculate_dot( points, i ):
     #get as and bs to calculate the normal
     ax = points[i + 1][0] - points[ i ][0]

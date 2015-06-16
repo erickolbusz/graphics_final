@@ -8,7 +8,11 @@ MAX_COLOR = 255
 RED = 0
 GREEN = 1
 BLUE = 2
-
+LIGHTS = []
+AMBIENT = [100, 100, 100]
+DIFFUSE = [1, 1, 1]
+SPECULAR = [0, 0, 0]
+SPEC_K = 2
 DEFAULT_COLOR = [0, 0, 0]
 
 def new_screen( width = XRES, height = YRES ):
