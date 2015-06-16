@@ -108,6 +108,8 @@ def create_script(hit_objects,start_time,end_time):
     f.write("push\n")
     f.write("move 0 -" + str( (end_time-start_time)*v ) + " 0 drop\n")
     for each in hit_objects:
+        print each
+        f.write("color %d %d %d\n"%(each["color"][0], each["color"][1], each["color"][2])) 
         f.write("sphere "+str(each["x"]/640.0*800) + " " + str(v*(each["t"]-start_time)) + " 0 30\n")
         if each["type"]=="SLIDER":
             reps = each["reps"]
@@ -136,5 +138,5 @@ def create_script(hit_objects,start_time,end_time):
 #nothing
 first_list = filter_items(0,10000)
 
-second_list = filter_items(15000,20000)
-create_script(second_list,15000,20000)
+second_list = filter_items(10000,20000)
+create_script(second_list,10000,20000)

@@ -153,7 +153,8 @@ Sprite,Foreground,Centre,"glow.png",320,348
 
 
 [Colours]
-Combo1 : 43,99,202
+//Combo1 : 43,99,202
+Combo1 : 20,200,0
 Combo2 : 128,152,198
 
 [HitObjects]

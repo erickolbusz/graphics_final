@@ -123,7 +123,6 @@ def second_pass(commands):
     return knobs
     
 def run(filename):    
-    color = [255, 255, 255]
     tmp = new_matrix()
     ident(tmp)
     stack = [tmp]
@@ -149,6 +148,8 @@ def run(filename):
     global frames
     
     for frame in range(frames):
+        color = [255, 255, 255]
+        #print color
         #frames = 1 means no animation aka static image
         for command in commands:
             if not stack:
@@ -159,6 +160,8 @@ def run(filename):
                 stack.append(copy.deepcopy(stack[len(stack)-1]))
             if cmd == "pop":
                 stack.pop()
+            if cmd == "color":
+                color = [command[1], command[2], command[3]]
             if cmd == "move":
                 if frames > 1 and command[4] in knobs[frame]:
                     k = knobs[frame][command[4]]
@@ -199,10 +202,11 @@ def run(filename):
             if cmd == "display":
                 display(screen)
         if frames > 1:
-            save_extension(screen, "animations/" + basename + "%03d"%frame + ".png")
+            #save_extension(screen, "animations/" + basename + "%03d"%frame + ".png")
+            save_ppm(screen, "animations/" + basename + "%03d"%frame + ".ppm")
             screen = new_screen()
             stack = []
             reset_zbuf()
-        
-    
+
+run("ctf.mdl")
 #run("sphere.mdl")

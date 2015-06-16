@@ -24,8 +24,8 @@ def reset_zbuf():
 #scanline draws
 #-- p0=bottom, p1=mid, p2=top
 def scanline_convert(p, p1, p2, screen, color=[randint(0,255),randint(0,255),randint(0,255)]):
-    for rgb in range(len(color)):
-        color[rgb] = randint(0,255)
+    '''for rgb in range(len(color)):
+        color[rgb] = randint(0,255)'''
 
     #gotta draw dat triangle tho
     draw_line(screen, p[0], p[1], p[2], p1[0], p1[1], p1[2], color)
@@ -131,7 +131,7 @@ def draw_polygons( points, screen, color ):
             top = points[p + top]
             mid = points[p + mid]
             bottom = points[p + bottom]
-            scanline_convert(top,mid,bottom,screen)
+            scanline_convert(top,mid,bottom,screen,color)
             ##########scanline ends here
             draw_line( screen, points[p][0], points[p][1], points[p][2],
                        points[p+1][0], points[p+1][1], points[p+1][2], color)
