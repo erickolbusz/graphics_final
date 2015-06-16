@@ -100,7 +100,9 @@ def filter_items(start,end):
 
 
 def create_script(hit_objects,start_time,end_time):
-    ##flag
+    ##we make it 30 fps.
+    ##t = milliseconds.
+    ## t/33.333 = number of frames.
     
     f= open("ctf.mdl","w")
     f.write("frames 30\n")
@@ -131,9 +133,19 @@ def create_script(hit_objects,start_time,end_time):
         
     f.write("pop\n")
     f.write("push\n")
+    
+    
+    f.write("move 200 0 0 KNOBONE\n")
+    f.write("move 0 200 0 KNOBTWO\n")
+    
+
     f.write("box 400 100 0 50 60 10\n")
-    #f.write("move...KNOB\n")
-    f.write("pop\n")
+    
+    f.write("vary KNOBONE 0 14 0 1\n")
+    f.write("vary KNOBTWO 15 29 0 1\n")
+    
+
+
     f.write("vary drop 0 29 0 1\n")
     f.close()
     
