@@ -112,7 +112,7 @@ def create_script(hit_objects,start_time,end_time):
         if each["type"]=="SLIDER":
             reps = each["reps"]
             last_x = int(each["curve"].split("|")[-1].split(":")[0])
-            interval = (abs(each["x"]-float(last_x) )/640.0*800)/v
+            interval = (abs(float(each["length"]) )/640.0*800)/v
             #print interval
             i=1
             while (reps > 0):
