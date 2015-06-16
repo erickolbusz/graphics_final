@@ -112,7 +112,10 @@ def second_pass(commands):
                 exit(2)
             start_value = cmd[4]
             end_value = cmd[5]
-            change_per_frame = float(end_value-start_value)/float(end_frame-start_frame)
+            change_per_frame=0
+            if (end_frame != start_frame):
+                change_per_frame = float(end_value-start_value)/float(end_frame-start_frame)
+            
             for frame in range(frames):
                 if frame < start_frame:
                     knobs[frame][knob_name] = start_value
