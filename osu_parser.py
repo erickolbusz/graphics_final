@@ -129,7 +129,11 @@ def create_script(hit_objects,start_time,end_time):
         #add another hit sphere here too.
         ##
         
-    #f.write("push\n")
+    f.write("pop\n")
+    f.write("push\n")
+    f.write("box 400 100 0 50 60 10\n")
+    #f.write("move...KNOB\n")
+    f.write("pop\n")
     f.write("vary drop 0 29 0 1\n")
     f.close()
     
