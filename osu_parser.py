@@ -108,8 +108,22 @@ def create_script(hit_objects,start_time,end_time):
     f.write("push\n")
     f.write("move 0 -" + str( (end_time-start_time)*v ) + " 0 drop\n")
     for each in hit_objects:
-        f.write("sphere "+str(each["x"]) + " " + str(v*(each["t"]-start_time)) + " 0 30\n")
-        
+        f.write("sphere "+str(each["x"]/640.0*800) + " " + str(v*(each["t"]-start_time)) + " 0 30\n")
+        if each["type"]=="SLIDER":
+            reps = each["reps"]
+            last_x = int(each["curve"].split("|")[-1].split(":")[0])
+            interval = (abs(each["x"]-float(last_x) )/640.0*800)/v
+            #print interval
+            i=1
+            while (reps > 0):
+                if i%2==1:
+                    f.write("sphere "+ str(last_x/640.0*800) + " " + 
+                            str(v*(each["t"]-start_time + interval*i)) + " 0 30\n")
+                else:
+                    f.write("sphere "+ str(each["x"]/640.0*800) + " " + 
+                            str(v*(each["t"]-start_time + interval*i)) + " 0 30\n")
+                i+=1
+                reps-=1
         ##for bezier
         #pass B|x:y|x:y through here, or at least the last x and the # of repeats.
         #add another hit sphere here too.
