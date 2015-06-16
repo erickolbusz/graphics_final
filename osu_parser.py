@@ -96,11 +96,14 @@ def filter_items(start,end):
         x = HIT_ITEMS[key]
         if x["t"] >=  start and x["t"] < end+time:
             swag.append(x)
-    return swag
+    newlist = sorted(swag,key = lambda k: k["t"])
+    return newlist
 
 
 def create_script(hit_objects,start_time,end_time):
-    ##flag
+    ##we make it 30 fps.
+    ##t = milliseconds.
+    ## t/33.333 = number of frames.
     
     f= open("ctf.mdl","w")
     f.write("frames 30\n")
@@ -131,7 +134,21 @@ def create_script(hit_objects,start_time,end_time):
         #add another hit sphere here too.
         ##
         
-    #f.write("push\n")
+    f.write("pop\n")
+    f.write("push\n")
+    
+    
+    f.write("move " + str(400-hit_objects[0]["x"]) + " 0 0 KNOB1\n")
+    f.write("move 0 200 0 KNOB2\n")
+    
+
+    f.write("box 400 100 0 50 60 10\n")
+    
+    #f.write("vary KNOB1 0 " +  (hit_objects[0]["t"] - start_ +  " 0 1\n")
+    f.write("vary KNOB2 15 29 0 1\n")
+    
+
+
     f.write("vary drop 0 29 0 1\n")
     f.close()
     
