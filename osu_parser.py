@@ -110,6 +110,7 @@ def create_script(hit_objects,start_time,end_time):
     f= open("ctf.mdl","w")
     f.write("frames " +str(frames) + "\n")
     f.write("basename ctf\n")
+    f.write("light 400 0 0 230 230 230\n")
     f.write("push\n")
     f.write("move 0 -" + str( (end_time-start_time)*v ) + " 0 drop\n")
     
@@ -119,7 +120,9 @@ def create_script(hit_objects,start_time,end_time):
         d["t"]=int(each["t"])
         d["x"]=int(each["x"])
         swag.append(d)
-        f.write("color %d %d %d\n"%(each["color"][0], each["color"][1], each["color"][2])) 
+        f.write("ambient %d %d %d\n"%(each["color"][0], each["color"][1], each["color"][2]))
+        f.write("diffuse %d %d %d\n"%(0.3,0.3,0.3))
+        f.write("specular %d %d %d\n"%(0.4,0.5,0.2)) 
         f.write("sphere "+str(each["x"]/640.0*800) + " " + str(v*(each["t"]-start_time)+100) + " 0 30\n")
         if each["type"]=="SLIDER":
             reps = each["reps"]
@@ -148,14 +151,13 @@ def create_script(hit_objects,start_time,end_time):
         
     f.write("pop\n")
     f.write("push\n")
-    
-    print len(swag)
-    for each in swag:
-        print each
     f.write("move " + str( (hit_objects[0]["x"]) - 375)+ " 0 0 KNOB0\n")
     for index in range(len(swag))[0:-2]:
         f.write("move " + str(swag[index+1]["x"]-swag[index]["x"]) + ".0 0 0 KNOB"+str(index+1)+"\n")
     
+    f.write("ambient %d %d %d\n"%(139,69,19))
+    f.write("diffuse %d %d %d\n"%(0.6,0.5,0.6))
+    f.write("specular %d %d %d\n"%(0.1,0.05,0.1)) 
     f.write("box 400 10 0 50 -40 10\n")
     f.write("box 350 40 0 150 -10 10 \n") 
     
@@ -177,5 +179,5 @@ def create_script(hit_objects,start_time,end_time):
 #nothing
 first_list = filter_items(0,10000)
 
-second_list = filter_items(15000,20000)
-create_script(second_list,15000,20000)
+second_list = filter_items(17000,30000)
+create_script(second_list,17000,30000)

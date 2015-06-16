@@ -225,10 +225,10 @@ def run(filename):
                 display(screen)
         if frames > 1:
             #save_extension(screen, "animations/" + basename + "%05d"%frame + ".png")
-            save_ppm(screen, "animations/" + basename + "%05d"%frame + ".ppm")
+            save_ppm(screen, "animations/" + basename + "%06d"%frame + ".ppm")
             screen = new_screen()
             stack = []
             reset_zbuf()
 
-#run("ctf.mdl")
-run("sphere.mdl")
+run("ctf.mdl")
+#run("sphere.mdl")
