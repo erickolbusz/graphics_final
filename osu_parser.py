@@ -105,7 +105,7 @@ def create_script(hit_objects,start_time,end_time):
     ##we make it 30 fps.
     ##t = milliseconds.
     ## t/33.333 = number of frames.
-    frames = (end_time-start_time)/1000*20+100
+    frames = (end_time-start_time)/1000*20+100 
     
     f= open("ctf.mdl","w")
     f.write("frames " +str(frames) + "\n")
