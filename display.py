@@ -2,8 +2,8 @@ from subprocess import Popen, PIPE
 from os import remove
 
 #constants
-XRES = 1000
-YRES = 1000
+XRES = 800
+YRES = 600
 MAX_COLOR = 255
 RED = 0
 GREEN = 1

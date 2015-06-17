@@ -22,12 +22,36 @@ def reset_zbuf():
         for j in range(600):
             z_buffer[j][i] = -sys.maxint
 
+def order_ccw(p, p1, p2):
+    points = [p, p1, p2]
+    points.sort() #by x
+    if points[0][0] == points[1][0]:
+        if points[1][1] < points[0][1]:
+            return points
+        else:
+            return [points[1], points[0], points[2]]
+    else:
+        leftmost = points[0]
+        points.pop(0)
+    #points.sort(key = lambda x: x[1])
+    #return [leftmost, points[0], points[1]]
+    p1 = points[0]
+    p2 = points[1]
+    d1 = (p1[1]-leftmost[1])/(p1[0]-leftmost[0])
+    d2 = (p2[1]-leftmost[1])/(p2[0]-leftmost[0])
+    if d1 < d2:
+        return [leftmost, p1, p2]
+    else:
+        return [leftmost, p2, p1]
+    
+    
 #scanline draws
 #-- p0=bottom, p1=mid, p2=top
 def scanline_convert(p, p1, p2, screen, color=[randint(0,255),randint(0,255),randint(0,255)]):
     '''for rgb in range(len(color)):
         color[rgb] = randint(0,255)'''
-    color = get_light(p, p1, p2)
+    ccw_points = order_ccw(p, p1, p2)
+    color = get_light(ccw_points[0], ccw_points[1], ccw_points[2])
     #gotta draw dat triangle tho
     draw_line(screen, p[0], p[1], p[2], p1[0], p1[1], p1[2], color)
     draw_line(screen, p[0], p[1], p[2], p2[0], p2[1], p2[2], color)

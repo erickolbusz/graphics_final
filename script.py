@@ -229,5 +229,5 @@ def run(filename):
             stack = []
             reset_zbuf()
 
-#run("ctf.mdl")
-run("sphere.mdl")
+run("ctf.mdl")
+#run("sphere.mdl")
