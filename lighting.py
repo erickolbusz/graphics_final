@@ -41,7 +41,8 @@ def get_light(p0, p1, p2):
         if dota3 > 0:
             #congrats valvo
             dota3 = dota3 ** SPEC_K
-            I[i] += dota3*li_color[i]
+            for i in range(len(li_color)):
+                I[i] += dota3*li_color[i]
         #print I
             
         
