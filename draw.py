@@ -135,6 +135,7 @@ def draw_polygons( points, screen, color ):
             mid = points[p + mid]
             bottom = points[p + bottom]
             real_color = scanline_convert(top,mid,bottom,screen,color)
+            print LIGHTS
             ##########scanline ends here
             draw_line( screen, points[p][0], points[p][1], points[p][2],
                        points[p+1][0], points[p+1][1], points[p+1][2], real_color)
@@ -209,6 +210,7 @@ def add_box( points, x, y, z, width, height, depth ):
 
 
 def add_sphere( points, cx, cy, cz, r, step ):
+    
     num_steps = MAX_STEPS / step
     temp = []
 

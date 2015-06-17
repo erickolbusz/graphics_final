@@ -1,6 +1,7 @@
 from matrix import *
 from gmath import *
 from display import *
+import copy
 
 def get_light(p0, p1, p2):
     I = [0,0,0]
@@ -16,9 +17,10 @@ def get_light(p0, p1, p2):
         I[i] = AMBIENT[i]
 
     for li in LIGHTS:
+        print li
         #print I
         li_color = li[0]
-        li_v = li[1]
+        li_v = copy.deepcopy(li[1])
         normalize(li_v)
         dota2 = sum([li_v[i]*N[i] for i in range(len(N))])
         
@@ -44,6 +46,7 @@ def get_light(p0, p1, p2):
             for i in range(len(li_color)):
                 I[i] += dota3*li_color[i]
         #print I
+        print li
             
         
         
