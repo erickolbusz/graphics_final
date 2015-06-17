@@ -110,7 +110,7 @@ def create_script(hit_objects,start_time,end_time):
     f= open("ctf.mdl","w")
     f.write("frames " +str(frames) + "\n")
     f.write("basename ctf\n")
-    f.write("light 255 255 255 400 0 0\n")
+    f.write("light 255 255 255 0 -0.5 1\n")
     f.write("push\n")
     f.write("move 0 -" + str( (end_time-start_time)*v ) + " 0 drop\n")
     
@@ -121,8 +121,8 @@ def create_script(hit_objects,start_time,end_time):
         d["x"]=int(each["x"])
         swag.append(d)
         f.write("ambient %d %d %d\n"%(each["color"][0], each["color"][1], each["color"][2]))
-        f.write("diffuse %d %d %d\n"%(0.1,0.8,1.6))
-        f.write("specular %d %d %d\n"%(0.2,0.2,0.2)) 
+        f.write("diffuse %f %f %f\n"%(0.5,0.5,0.5))
+        f.write("specular %f %f %f\n"%(0.8,0.8,0.8)) 
         f.write("sphere "+str(each["x"]/640.0*800) + " " + str(v*(each["t"]-start_time)+100) + " 0 30\n")
         if each["type"]=="SLIDER":
             reps = each["reps"]
@@ -156,8 +156,8 @@ def create_script(hit_objects,start_time,end_time):
         f.write("move " + str(swag[index+1]["x"]-swag[index]["x"]) + ".0 0 0 KNOB"+str(index+1)+"\n")
     
     f.write("ambient %d %d %d\n"%(139,69,19))
-    f.write("diffuse %d %d %d\n"%(0.6,0.5,0.6))
-    f.write("specular %d %d %d\n"%(0.1,0.05,0.1)) 
+    f.write("diffuse %f %f %f\n"%(0.1,0.1,0.1))
+    f.write("specular %f %f %f\n"%(0.1,0.1,0.1)) 
     f.write("box 400 10 0 50 -40 10\n")
     f.write("box 350 40 0 150 -10 10 \n") 
     

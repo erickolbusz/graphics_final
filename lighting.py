@@ -26,8 +26,10 @@ def get_light(p0, p1, p2):
         #diffuse
         if dota2 > 0:
             for i in range(len(li_color)):
-                I[i] += dota2*li_color[i]
+                #print dota2*li_color[i]*DIFFUSE[i]
+                I[i] += dota2*li_color[i]*DIFFUSE[i]
         #print I
+                
         #specular
         p = [ v1[1]*v2[2]-v1[2]*v2[1]
             , v1[2]*v2[0]-v1[0]*v2[2]
@@ -43,10 +45,8 @@ def get_light(p0, p1, p2):
             #congrats valvo
             dota3 = dota3 ** SPEC_K
             for i in range(len(li_color)):
-                I[i] += dota3*li_color[i]
+                I[i] += dota3*li_color[i]*SPECULAR[i]
         #print I
-            
-        
         
     '''l = [p0, p1, p2]
     center = [ sum([p[0] for p in l])/3.0

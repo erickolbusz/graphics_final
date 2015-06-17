@@ -167,7 +167,9 @@ def run(filename):
             if cmd == "color":
                 color = [command[1], command[2], command[3]]
             if cmd == "light":
-                LIGHTS.append(([command[1], command[2], command[3]], [command[4], command[5], command[6]]))
+                light = ([command[1], command[2], command[3]], [command[4], command[5], command[6]])
+                if light not in LIGHTS:
+                    LIGHTS.append(light)
             if cmd == "ambient":
                 AMBIENT[0] = command[1]
                 AMBIENT[1] = command[2]
@@ -223,8 +225,8 @@ def run(filename):
             if cmd == "display":
                 display(screen)
         if frames > 1:
-            #save_extension(screen, "animations/" + basename + "%05d"%frame + ".png")
-            save_ppm(screen, "animations/" + basename + "%06d"%frame + ".ppm")
+            save_extension(screen, "animations/" + basename + "%05d"%frame + ".png")
+            #save_ppm(screen, "animations/" + basename + "%06d"%frame + ".ppm")
             screen = new_screen()
             stack = []
             reset_zbuf()
