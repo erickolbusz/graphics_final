@@ -17,7 +17,6 @@ def get_light(p0, p1, p2):
         I[i] = AMBIENT[i]
 
     for li in LIGHTS:
-        print li
         #print I
         li_color = li[0]
         li_v = copy.deepcopy(li[1])
@@ -46,7 +45,6 @@ def get_light(p0, p1, p2):
             for i in range(len(li_color)):
                 I[i] += dota3*li_color[i]
         #print I
-        print li
             
         
         
@@ -64,9 +62,11 @@ def get_light(p0, p1, p2):
             , int(round(sum(I[2] for I in l_I)))
             ]'''
     
-    for rgb in I:
+    for rgbi in range(len(I)):
+        rgb = I[rgbi]
+        I[rgbi] = int(round(rgb))
         if rgb > 255:
-            rgb = 255
+            I[rgbi] = 255
     return I
     
 '''
